@@ -3,6 +3,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #include <string>
 #include <iostream>
 #include <stdlib.h>
@@ -81,16 +82,20 @@ int main(int argc, char** argv)
 
 int main(int argc, char** argv) {
 	Mat image;
-	string filename = "find_auto_duel_button.png";
-	image = imread(filename, IMREAD_COLOR); // Read the file
-
+	Mat source_im;
+	Mat auto_duel_but;
+	string filename = "../find_auto_duel_button.jpg";
+	string filename2 = "../auto_duel_pic.png";
+	source_im = imread(filename, IMREAD_COLOR); // Read the file
+	auto_duel_but = imread(filename2, IMREAD_COLOR)/512;
+	filter2D(source_im, image, -1, auto_duel_but);
 	if (image.empty()) // Check for invalid input
 	{
 		cerr << "Could not open or find the image" << std::endl;
 		Sleep(2000);
 		return -1;
 	}
-
+	cout << auto_duel_but.depth() << endl;
 	namedWindow("Display window", WINDOW_AUTOSIZE); // Create a window for display.
 	imshow("Display window", image); // Show our image inside it.
 
