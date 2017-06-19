@@ -87,7 +87,9 @@ int main(int argc, char** argv) {
 	string filename = "../find_auto_duel_button.jpg";
 	string filename2 = "../auto_duel_pic.png";
 	source_im = imread(filename, IMREAD_COLOR); // Read the file
-	auto_duel_but = imread(filename2, IMREAD_COLOR)/512;
+	auto_duel_but = imread(filename2, IMREAD_COLOR);
+	auto_duel_but.convertTo(auto_duel_but, CV_64F);
+	auto_duel_but = auto_duel_but / 250000;
 	filter2D(source_im, image, -1, auto_duel_but);
 	if (image.empty()) // Check for invalid input
 	{
